@@ -25,13 +25,15 @@ It wrote the code, ran away, and now the game is unplayable.
 
 ## 📝 Document Your Experience
 
-- [ ] Describe the game's purpose.
-- [ ] Detail which bugs you found.
-- [ ] Explain what fixes you applied.
+- **Game purpose:** A number-guessing game where the player tries to guess a secret number within a limited number of attempts, receiving higher/lower hints and a score that decreases with each wrong guess.
+
+- **Bugs found:** The hints were backwards: guessing too high said "Go HIGHER!" and vice versa. On every even-numbered attempt, the secret was silently converted to a string, making it impossible to win on attempts 2, 4, 6, etc. The attempt counter started at 1 instead of 0, the Hard difficulty range `(1, 50)` was easier than Normal `(1, 100)`, invalid inputs consumed an attempt, the scoring formula had an off-by-one error, "Too High" guesses inconsistently added or subtracted points based on odd/even attempts, New Game didn't reset the score or status, and the `logic_utils.py` functions were all unimplemented stubs.
+
+- **Fixes applied:** Swapped the hint messages in `check_guess` and removed the string coercion block so the secret is always compared as an integer. Initialized attempts to `0`, changed Hard's range to `(1, 500)`, moved the attempt increment to after input validation, and corrected the scoring formula to `100 - 10 * attempt_number` with a flat −5 for any wrong guess. New Game now resets score, status, and history and uses the correct difficulty range; all four game functions were implemented in `logic_utils.py` and imported into `app.py`; and the test assertions were fixed from `result == "Win"` to `result[0] == "Win"` to match the tuple return type.
 
 ## 📸 Demo
 
-- [ ] [Insert a screenshot of your fixed, winning game here]
+![](/winning_game.png "")
 
 ## 🚀 Stretch Features
 
